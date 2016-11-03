@@ -47,6 +47,9 @@ Added significant improvements for large organizations running on a single serve
 #### Team Settings
 - Team names are now restricted to be a minimum of two characters long, instead of four, to support abbreviated team names
 
+#### Slack Import
+- Slack Import now supports importing files, integration/bot messages, and 
+
 #### System Console
 - Maximum number of channels per team is now configurable
 
