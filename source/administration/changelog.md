@@ -25,6 +25,9 @@ Added significant improvements for large organizations running on a single serve
 #### Favorite Channels
 - Added the ability to select Favorite Channels that appear at the top of the channels sidebar
 
+#### Channel Shortlinking
+- Added the ability to autolink and autocomplete channels by using the ~ character in messages
+
 ### Improvements
 
 #### User Interface
@@ -48,7 +51,7 @@ Added significant improvements for large organizations running on a single serve
 - Team names are now restricted to be a minimum of two characters long, instead of four, to support abbreviated team names
 
 #### Slack Import
-- Slack Import now supports importing files, integration/bot messages, and 
+- Slack Import now supports importing files
 
 #### System Console
 - Maximum number of channels per team is now configurable
