@@ -2,6 +2,275 @@
 
 This changelog summarizes updates to [Mattermost Team Edition](http://www.mattermost.org/), an open source team messaging solution released bi-monthly under an MIT license, and [Mattermost Enterprise Edition](https://about.mattermost.com/pricing/), a commercial upgrade offering enterprise messaging for large organizations.
 
+## Release v3.7.0
+
+- Release date: 2017-03-16
+
+Mattermost v3.7.0 contains a [security update](http://about.mattermost.com/security-updates/). [Upgrading to Mattermost v3.7.0](http://docs.mattermost.com/administration/upgrade.html) is highly recommended.
+
+### Highlights
+
+#### Group Messaging
+
+- Added support for multi-party direct messages, you can now quickly create conversations with a small group of people directly from the Direct Message list
+
+#### Channel Push Notification Preferences
+
+- Added channel notification preferences for mobile push to customize your notification settings
+
+#### New Website Link Previews
+
+- Improved display of link previews for website content when available, replacing the previous preview feature that handled only a subset of links
+
+#### Bulk User Import Tool
+
+- Convert your existing data into our new import format, and use this tool to import teams, channels, users and posts from other systems
+
+#### Channel Admins ([Enterprise E10 & E20](https://about.mattermost.com/pricing/))
+
+- Added a new "Channel Admin" role to grant permissions for renaming and deleting a channel
+
+#### SAML OneLogin ([Enterprise E20](https://about.mattermost.com/pricing/))
+
+- Added support for OneLogin authentication and account creation via SAML 2.0.
+
+### Improvements
+
+#### Performance
+
+- Loading new users can now be run on a live system without a major impact on performance through the new bulk user import tool
+- Optimized SQL queries by adding index for PostId, removing ParentId from delete post queries, and fixing blank post queries
+- Increased performance for "user typing..." messages by moving the check from server to client
+- Increased performance for direct message channels by removing `MakeDirectChannelVisible` call and adding client handling 
+- Moved channel permission checks back to using cache
+- Added caching for emoji, file info, profile images and website link previews
+- Adding index and caching to reactions
+- Increased performance when receiving messages by 
+    - removing the `viewChannel` requests when receiving a new post and only marking the channel as read when switching into it, out of it or when closing the app
+    - removing the `view_channel` websocket event from the server
+    - removing the `getChannel` and `getTeamUnreads` requests when receiving a new post
+    - adding client handling for marking channels and teams unread
+    - adding `getMyChannelMembers` request to web app when window becomes active after ten seconds
+- Increased time between database recycles
+- Improved mobile push proxy connections by disabling keep-alives
+- Fixed Minio not properly closing read objects
+- Fixed file info caching and emoji reaction issues on Aurora read replicas
+- Added reloading, removing and uploading of Enterprise license key to cache purge
+
+#### Web User Interface
+
+- Update status indicators shown in post view
+- Show `(Edited)` indicator if a message has been edited
+- `(message deleted)` placeholder is no longer shown to the user that deleted the message
+- Added a link to Manage Members modal from channel members list
+- Added support for image previews if the URL contains a custom query
+- Added support for all timecode formats for YouTube previews
+- System message is now posted after changing channel purpose
+- Reinstated the delete option on system messages
+- Clicking on timestamps on messages now open a permalink view
+- Removed new lines for system messages posted after updating channel header
+- Focus is set back to message box after uploading a file
+- Added machine-readable date and time to timestamps
+- Adjusted tablet view so the browser URL bar doesn't overlap the message box
+- Channel header can now be up to 1024 characters long
+- Changed custom theme vector to a list of name value pairs to more easily add new theme colours
+
+#### Mobile
+
+- New push proxy server supports multiple apps (in preparation for the second generation mobile apps)
+- New push proxy server is backwards compatible with the old iOS and Android apps
+- Unread channels on the channel view are indicated with a red dot, and unread mentions with a red dot and mention count
+- Added floating timestamp to mobile right hand side
+- Send icon is disabled for messages and comments until a valid message is typed
+- Removed redundant search hint popover and updated search buttons
+- Removed "@"-symbol preceeding usernames and full names in push notifications
+
+#### Text Formatting
+
+- Added support for explicit image sizes in markdown
+- Terms such as `_AAA_BBB_` now italicize correctly
+- First backslash is now truncated when posting file paths that start with `\\`
+- Markdown isn't rendered for system messages posted after renaming a channel
+- Messages beginning with `[some_text]: some_text` now longer post as blank space
+- Pipe characters (`|`) in a Markdown table now work
+
+#### Integrations
+
+- Added edit screens for incoming and outgoing webhooks
+- When no username is set for a slash command response, the username of the person is now used instead of "webhook"
+- Added a confirmation dialog to prevent accidentally deleting an integration
+
+#### Localization
+
+- System messages are now localized based on language set in the Account Settings
+
+#### Onboarding
+
+- Clicking on email verification link now automatically fills in your email address on the sign in page
+- On login with GitLab SSO, Mattermost username and email are now synced with GitLab username and email
+
+#### Slack Import
+
+- Added support for Slack's Markdown-like post formatting
+- Added support for topic & purpose system messages
+- Channels imported from Slack with the same name as a deleted channel now import successfully
+- Added support for users who don't have a non-empty email address in Slack
+
+#### System Console
+
+- Added active users statistics to Site Statistics page
+- Focus is set to server log control in **System Console > Reporting > Logs** when loading the panel
+
+#### Enterprise Edition
+
+- Added WebSocket events, webhook events and cluster request time logging for Performance Monitoring
+- Added new policy settings to **System Console > General > Policy** to
+   - restrict who can delete messages
+   - restrict whether messages can be edited and for how long
+
+### Bug Fixes
+
+- Fixed an error where a channel would no longer load after using a GitLab built-in Mattermost slash command `/project issue show <number>`
+- Outdated results in modal searches are now properly discarded
+- Fixed order of channels on the sidebar
+- Fixed search highlighting for wildcard searches and hashtags
+- Clicking "Send message" link in profile popover in a comment thread, now properly opens the direct message channel
+- Fixed channels missing from "More Channels" modal after leaving them
+- Fixed webhook messages not appearing in channels the creator wasn't in
+- Angled brackets around mailto links now longer autolink
+- Fixed an issue where "New messages below" bubble didn't disappear properly on mobile view
+- Fixed CLI panic on `platform channel create` command if team does not exist
+- Team invite link now directs user to a private team after account creation with LDAP
+- `Create a New Team` menu option is now in the Main Menu for System Admins when team creation is disabled
+- Fixed the response for malformed command execute request
+- New message indicator no longer appears for ephemeral posts
+- Fixed emoji aliases not showing up in autocomplete 
+- Mention badge now properly updates on the team sidebar when switching teams
+- (at)-mention preceeded by a "#"-symbol now displays correctly
+- Don't allow APIs to create user accounts that start with a number preventing them from signing in
+- Using a mouse to choose an emoji from the autocomplete now works
+- Fixed syntax highlighting on mobile
+- Fixed inconsistent styling of file uploads between mobile and desktop
+- Push notifications are no longer missing username when preferences set to "For all activity"
+- Fixed a bug where the Go driver was using a wrong URL for `/users/claim/email_to_oauth` route
+
+### Compatibility  
+
+Backwards compatibility with the old CLI tool will be removed in v3.8. See [documentation to learn more about the new CLI tool](https://docs.mattermost.com/administration/command-line-tools.html).
+
+Changes from v3.5 to v3.6:
+
+#### config.json   
+
+Multiple setting options were added to `config.json`. Below is a list of the additions and their default values on install. The settings can be modified in `config.json` or the System Console. 
+
+**Changes to Team Edition and Enterprise Edition**:
+
+ - Under `ServiceSettings` in `config.json`:
+   - Added `"TimeBetweenUserTypingUpdatesMilliseconds": 5000` to control how frequently the "user is typing..." messages are updated
+   - Added `"EnableUserTypingMessages": true` to control whether "user is typing..." messages are displayed below the message box
+   - Added `"EnableLinkPreviews": false` to control whether a preview of website content is displayed below the message
+   - Removed deprecated `"SegmentDeveloperKey"` setting
+   
+**Additional Changes to Enterprise Edition**:
+
+ - Under `ServiceSettings` in `config.json`:
+   - Added `"RestrictPostDelete": all` to set who can delete messages
+   - Added `"AllowEditPost": always` to set whether messages can be edited
+   - Added `"PostEditTimeLimit: 300` to set how long messages can be edited, if `"AllowEditPost": time_limit` is specified
+   - Added `"ClusterLogTimeoutMilliseconds": 2000` to control frequency of cluster request time logging for [performance monitoring](https://docs.mattermost.com/deployment/metrics.html)
+
+### Database Changes from v3.6 to v3.7
+
+**Posts Table:** 
+- Added `EditAt` column
+
+### API Changes from v3.6 to v3.7
+
+**New routes (APIv3):**
+- `POST` at `/channels/create_group`
+  - Creates a new group message channel
+- `POST` at `/hooks/incoming/update`
+  - Updates an incoming webhook
+- `POST` at `/hooks/outgoing/update`
+  - Updates an outgoing webhook
+- `GET` at `/teams/{team_id}/...` // XXX check with developer
+  - Returns a post list, based on the provided channel and post ID.
+- `POST` at `/channels/{channel_id}/update_member_roles` // XXX check with developer
+  - Updates the user's roles in a channel
+
+**Removed routes (APIv3):**
+- `GET` at `/channels/more` (replaced by /`channels/more/{offset}/{limit}`)
+
+**Deprecated routes (APIv3):**
+- `POST` at `/channels/update_last_viewed_at` (replaced by `/channels/view`) to be removed in v3.8
+- `POST` at `/channels/set_last_viewed_at` (replaced by `/channels/view`) to be removed in v3.8
+- `POST` at `/users/status/set_active_channel` (replaced by `/channels/view`) to be removed in v3.8
+
+### Websocket Event Changes from v3.6 to v3.7
+
+**Added:**
+- `channel_create` that occurs each time a channel is created
+- `group_added` that occures when a new group message channel is created
+
+**Removed:**
+- `view_channel` that occurred when a new message was received
+
+### Known Issues
+
+- Slack import doesn't add merged members/e-mail accounts to imported channels
+- User can receive a video call from another browser tab while already on a call
+- Sequential messages from the same user appear as separate posts on mobile view
+- Edge overlays desktop notification sound with system notification sound
+- Search autocomplete picker is broken on Android
+- Jump link in search results does not always jump to display the expected post
+- Running CLI without access to logs causes panic
+- Switching channels with CTRL/CMD+K doesn't work properly when using the mouse
+- Reacting to a deleted message in the right-hand sidebar throws an error
+- Sometimes no email verification is sent to the new email address after changing your email in Account Settings. A workaround is to sign in with the new email address and hitting "Resend Email" on the "Email not verified" page
+- Clicking "Load more messages" sometimes brings you to the bottom of the page
+- Switching to a channel with unreads sometimes doesn't jump to the correct scrolling position
+
+### Contributors
+
+Many thanks to all our contributors. In alphabetical order:
+
+/platform
+
+- [aautio](https://github.com/aautio), [akihikodaki](https://github.com/akihikodaki), [andreistanciu24](https://github.com/andreistanciu24), [asaadmahmood](https://github.com/asaadmahmood), [ayadav](https://github.com/ayadav), [AymaneKhouaji](https://github.com/AymaneKhouaji), [bjoernr-de](https://github.com/bjoernr-de), [coreyhulen](https://github.com/coreyhulen), [cpanato](https://github.com/cpanato), [CrEaK](https://github.com/CrEaK), [crspeller](https://github.com/crspeller), [DavidLu1997](https://github.com/DavidLu1997), [debanshuk](https://github.com/debanshuk), [enahum](https://github.com/enahum), [erikgui](https://github.com/erikgui), [favadi](https://github.com/favadi), [gig177](https://github.com/gig177), [grundleborg](https://github.com/grundleborg), [hmhealey](https://github.com/hmhealey), [it33](https://github.com/it33), [jasonblais](https://github.com/jasonblais), [jazzzz](https://github.com/jazzzz), [JeffSchering](https://github.com/JeffSchering), [joannekoong](https://github.com/joannekoong), [jostyee](https://github.com/jostyee), [jurgenhaas](https://github.com/jurgenhaas), [jwilander](https://github.com/jwilander), [kaakaa](https://github.com/kaakaa), [khawerrind](https://github.com/khawerrind), [laur89](https://github.com/laur89), [lfbrock](https://github.com/lfbrock), [mikaoelitiana](https://github.com/mikaoelitiana), [morenoh149](https://github.com/morenoh149), [mpoornima](https://github.com/mpoornima), [pan-feng](https://github.com/pan-feng), [pepf](https://github.com/pepf), [Rudloff](https://github.com/Rudloff), [ruzette](https://github.com/ruzette), [saturninoabril](https://github.com/saturninoabril), [senk](https://github.com/senk), [Zaicon](https://github.com/Zaicon), [ZJvandeWeg](https://github.com/ZJvandeWeg)
+
+/api-reference
+
+- [debanshuk](https://github.com/debanshuk), [enahum](https://github.com/enahum), [jwilander](https://github.com/jwilander), [ruzette](https://github.com/ruzette), [Zaicon](https://github.com/Zaicon)
+
+/docs
+
+- [asaadmahmood](https://github.com/asaadmahmood), [cpanato](https://github.com/cpanato), [crspeller](https://github.com/crspeller), [esethna](https://github.com/esethna), [grundleborg](https://github.com/grundleborg), [hmhealey](https://github.com/hmhealey), [ilabdsf](https://github.com/ilabdsf), [it33](https://github.com/it33), [jasonblais](https://github.com/jasonblais), [JeffSchering](https://github.com/JeffSchering), [jostyee](https://github.com/jostyee), [jwilander](https://github.com/jwilander), [lfbrock](https://github.com/lfbrock), [lindy65](https://github.com/lindy65), [matmorel](https://github.com/matmorel), [senk](https://github.com/senk), [vladimirprieto](https://github.com/vladimirprieto), [wget](https://github.com/wget)
+
+/mobile
+
+- [asaadmahmood](https://github.com/asaadmahmood), [csduarte](https://github.com/csduarte), [enahum](https://github.com/enahum), [hmhealey](https://github.com/hmhealey), [jasonblais](https://github.com/jasonblais), [lfbrock](https://github.com/lfbrock)
+
+/docker
+
+- [darkrasid](https://github.com/darkrasid), [nikosch86](https://github.com/nikosch86), [xcompass](https://github.com/xcompass)
+
+/desktop
+
+- [asaadmahmood](https://github.com/asaadmahmood), [jasonblais](https://github.com/jasonblais), [jnugh](https://github.com/jnugh), [yuya-oc](https://github.com/yuya-oc)
+
+/selenium
+
+- [coreyhulen](https://github.com/coreyhulen), [esethna](https://github.com/esethna), [lindalumitchell](https://github.com/lindalumitchell)
+
+/push-proxy
+
+- [coreyhulen](https://github.com/coreyhulen), [jostyee](https://github.com/jostyee), [it33](https://github.com/it33)
+
+/load-test
+
+- [coreyhulen](https://github.com/coreyhulen), [crspeller](https://github.com/crspeller)
+
 ## Release v3.6.1  
 
 ### Notes on Patch Release
@@ -79,7 +348,6 @@ This changelog summarizes updates to [Mattermost Team Edition](http://www.matter
 - Removed status indicators on posts by webhooks 
 - Channel switcher (CTRL/CMD+K) search results for direct messages now match message autocomplete
 - Autocomplete is now case insensitive for @-mentions, emojis, slash commands and channel linking
-
 
 #### Enterprise Edition
 - Split out channel management permissions into separate settings for creation, deletion, and renaming a channel
