@@ -34,6 +34,7 @@ Incorrect example: ``https://mattermost.example.com:1234/team_name``
 
 Listen Address
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The address and port to which to bind and listen. Specifying ":8065" will bind to all network interfaces. Specifying ``127.0.0.1:8065`` will only bind to the network interface having that IP address.
 
 If you choose a port of a lower level (called "system ports" or "well-known ports", in the range of 0-1023), you must have permissions to bind to that port.
@@ -45,6 +46,7 @@ On Linux you can use: ``sudo setcap cap_net_bind_service=+ep ./bin/platform`` to
 +-------------------------------------------------------------------------------------------+
 
 Connection Security
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **None**: Mattermost will connect over an unsecure connection.
 
@@ -206,6 +208,7 @@ Maximum number of users per team, including both active and inactive users.
 
 Max Channels Per Team
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Maximum number of channels per team, including both active and deleted channels.
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -214,6 +217,7 @@ Maximum number of channels per team, including both active and deleted channels.
 
 Max Notifications Per Channel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Maximum total number of users in a channel before @all, @here, and @channel no longer send notifications to maximize performance.
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -573,7 +577,8 @@ Enable Webhook Debugging
 
 Enable Diagnostics and Error Reporting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**True**: To improve the quality and performance of Mattermost, you may send error reporting and diagnostic information to Mattermost, Inc. Read our `privacy policy <https://about.mattermost.com/default-privacy-policy>`_ to learn more.
+
+**True**: To improve the quality and performance of future Mattermost updates, this option sends error reporting and diagnostic information to Mattermost, Inc. To learn more about this feature, see :doc:`telemetry`.
 
 **False**: Diagnostics and error reporting are disabled.
 
@@ -1470,7 +1475,8 @@ Connection Security
 
 Enable Security Alerts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**True**: System Admins are notified by email if a relevant security fix alert has been announced in the last 12 hours. Requires email to be enabled.
+
+**True**: Enable System Admins to be notified by email if a relevant security fix alert is announced. Requires email to be enabled. To learn more about this feature, see :doc:`telemetry`.
 
 **False**: Security alerts are disabled.
 
@@ -1635,6 +1641,7 @@ WebRTC (Beta)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Enable Mattermost WebRTC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 **True**: Mattermost will allow making one-on-one video calls on Chrome, Firefox and `Mattermost Desktop Apps <https://about.mattermost.com/download/#mattermostApps>`_ on a server running in SSL mode.
 
 **False**: Mattermost doesn't allow one-on-one video calls.
@@ -1655,6 +1662,7 @@ This is the websocket used to signal and establish communication between the pee
 
 Gateway Admin URL
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Mattermost WebRTC uses this URL to obtain valid tokens for each peer to establish the connection. Enter ``https://<mattermost-webrtc-gateway-url>:<port>/admin``. Make sure you use HTTP or HTTPS in your URL depending on your server configuration.
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2063,6 +2071,7 @@ Throttle API at this number of requests per second if rate limiting is enabled.
 
 Maximum Burst Size
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Maximum number of requests allowed beyond the per second query limit.
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2071,6 +2080,7 @@ Maximum number of requests allowed beyond the per second query limit.
 
 Memory Store Size
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Maximum number of user sessions connected to the system as determined by **VaryByRemoteAddr** and **VaryByHeader** variables.
 
 Typically set to the number of users in the system.
