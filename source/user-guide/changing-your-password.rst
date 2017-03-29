@@ -13,4 +13,4 @@ If you sign in with a username and password, you can use Mattermost to change yo
     If the Password field is not editable, then you cannot use Mattermost to change your password. See your System Administrator for instructions on how to change your password.
 3. Enter your current password and new password information, then click **Save**.
 
-The next time that you are asked to sign into Mattermost, use your new password.
+The next time that you sign into Mattermost, use your new password.
