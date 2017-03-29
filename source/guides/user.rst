@@ -1,14 +1,38 @@
 Mattermost User's Guide
 -----------------------
 
-End user help and documentation. 
+End user help and documentation.
+
+Introduction
+============
+
+.. toctree::
+   :maxdepth: 2
+
+   /user-guide/overview.rst
 
 Getting Started
 ===============
 
 .. toctree::
-   :maxdepth: 2
-   :glob:
+
+  /user-guide/signing-in.rst
+  /user-guide/updating-your-profile.rst
+  /user-guide/changing-your-password.rst
+  /user-guide/setting-display-preferences.rst
+
+Writing and Formatting Messages
+===============================
+
+.. toctree::
+
+  /user-guide/formatting-messages.rst
+  /user-guide/alerting-colleagues.rst
+  /user-guide/flagging-and-pinning-messages.rst
+  /user-guide/creating-message-threads.rst
+
+.. toctree::
+  :hidden:
 
    /help/getting-started/signing-in.rst
    /help/getting-started/messaging-basics.md
@@ -20,12 +44,11 @@ Getting Started
    /help/getting-started/organizing.rst
    /help/apps/desktop-guide.rst
 
-Messaging
-=========
+.. Messaging
+.. =========
 
 .. toctree::
-   :maxdepth: 2
-   :glob:
+  :hidden:
 
    /help/messaging/sending-messages.md
    /help/messaging/reading-messages.md
@@ -35,13 +58,11 @@ Messaging
    /help/messaging/executing-commands.md
    /help/messaging/*
 
-Settings
-========
+.. Settings
+.. ========
 
 .. toctree::
-   :maxdepth: 2
-   :titlesonly:
-   :glob:
+  :hidden:
 
    /help/settings/account-settings.md
    /help/settings/theme-colors.md
