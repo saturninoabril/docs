@@ -31,6 +31,13 @@ Writing and Formatting Messages
   /user-guide/flagging-and-pinning-messages.rst
   /user-guide/creating-message-threads.rst
 
+Reference
+=========
+
+.. toctree::
+
+  /user-guide/ref-message-text-format.rst
+
 .. toctree::
   :hidden:
 

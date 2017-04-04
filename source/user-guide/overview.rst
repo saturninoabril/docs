@@ -15,16 +15,14 @@ notifications
 Teams
 -----
 
-In most cases, only one team.
-if multiple teams, they're listed along the left of the window
-each team has its own separate list of channels
+In most cases, there is only one team on a Mattermost server, but multiple teams are allowed. A team's channels are visible only to the members of that team.
 
-two channels are created when the team is created. all members of the team are automatically added to the two channels. One is called Town Square, and the other Off-Topic. Administrator can rename those two channels. You cannot leave the Town Square channel.
+Two public channels are created when a team is created. All members of the team are automatically added to the two channels. One is called Town Square, and the other is called Off-Topic. The System Administrator can rename those two channels. You cannot leave the Town Square channel.
 
 Public Channels
 ---------------
 
-Team members have access to all channels. When joining the team, they are automatically added to the Town Square channel and the Off-Topic channel. You can add yourself to any channel [link: see how]
+Team members have access to all public channels in that team. When joining the team, they are automatically added to the Town Square channel and the Off-Topic channel. Team members can add themselves to any public channel in their team.
 
 Private Groups
 --------------
@@ -44,6 +42,8 @@ Apps for using Mattermost
 -------------------------
 
 Web browser
-Desktop App (Windows only)
-Apple iOS
-Android
+  Mattermost runs within most browsers. See the `system requirements <https://docs.mattermost.com/install/requirements.html#client-software>`_ for a list of supported browsers and operating systems.
+Desktop App
+  A desktop app is available for Windows, Mac, and Linux as an alternative to using Mattermost in a web browser. See https://about.mattermost.com/download/ for more information and to download the app.
+Mobile App
+  A mobile app is available for Apple iOS and Android, which you can download from the Apple Store or from Google Play. See https://about.mattermost.com/download/ for more information.
