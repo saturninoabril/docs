@@ -7,6 +7,7 @@ Detailed documentation on extending and integrating with the Mattermost server.
    :maxdepth: 2
    :glob:
 
+   /integrations/integrations-program*
    /developer/api*
    /developer/webhooks*
    /developer/slash*
