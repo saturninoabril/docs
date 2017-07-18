@@ -28,7 +28,7 @@ Need
 Please help share some context on the need for a solution. 
 
 - What challenges and objectives led you to look for a solution?
-- What might have happened if you did not identify a solution?
+- What might hav e happened if you did not identify a solution?
 - Did you explore other solutions prior to this that did not work out? If so, what happened?
 
 Decision Process
