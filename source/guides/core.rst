@@ -69,6 +69,7 @@ Marketing
    :glob:
 
    /process/casestudy*
+   /process/guestarticle*
    
 Partners
 -------------------------
